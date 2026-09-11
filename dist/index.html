@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#090a0f" />
+    <meta name="description" content="AgentProof verifies AI work against plain-language acceptance criteria and releases payment when the evidence passes." />
+    <title>AgentProof — Verifiable work for the agent economy</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#workspace" aria-label="AgentProof home">
+        <span class="brand-mark" aria-hidden="true">AP</span>
+        <span>AgentProof</span>
+      </a>
+      <div class="network-pill"><span></span> GenLayer Studio Dev</div>
+      <button class="wallet-button" type="button" id="walletButton">Connect wallet</button>
+    </header>
+
+    <main id="workspace" class="workspace">
+      <section class="intro" aria-labelledby="pageTitle">
+        <div>
+          <p class="eyebrow">VERIFIABLE WORK · AUTOMATIC SETTLEMENT</p>
+          <h1 id="pageTitle">Did the agent<br /><em>earn the payment?</em></h1>
+        </div>
+        <p class="intro-copy">AgentProof compares delivered work with a plain-language brief. Independent AI validators inspect the evidence and produce one auditable decision.</p>
+      </section>
+
+      <section class="desk" aria-label="Agent work review">
+        <aside class="case-rail">
+          <div class="rail-heading">
+            <span>CASE</span>
+            <strong>AP-0248</strong>
+          </div>
+          <ol class="case-steps" aria-label="Case progress">
+            <li class="complete"><span>01</span><div><strong>Brief locked</strong><small>SHA-256 · 09:42 UTC</small></div></li>
+            <li class="complete"><span>02</span><div><strong>Work submitted</strong><small>GitHub PR #184</small></div></li>
+            <li class="active"><span>03</span><div><strong>AI adjudication</strong><small id="railStatus">Ready to evaluate</small></div></li>
+            <li><span>04</span><div><strong>Settlement</strong><small>Escrow pending</small></div></li>
+          </ol>
+          <div class="escrow-card">
+            <span>ESCROW</span>
+            <strong>1,250 <small>GEN</small></strong>
+            <div class="escrow-bar"><i></i></div>
+            <p>Locked until verdict finality</p>
+          </div>
+        </aside>
+
+        <div class="review-panel">
+          <div class="panel-tabs" role="tablist" aria-label="Review sections">
+            <button class="tab active" type="button" role="tab" aria-selected="true" data-tab="brief">Brief</button>
+            <button class="tab" type="button" role="tab" aria-selected="false" data-tab="evidence">Evidence <b>3</b></button>
+            <button class="tab" type="button" role="tab" aria-selected="false" data-tab="verdict">Verdict</button>
+          </div>
+
+          <div class="tab-panel active" id="briefPanel" role="tabpanel">
+            <div class="field-group">
+              <label for="jobBrief">Locked job brief</label>
+              <textarea id="jobBrief" rows="4">Fix the duplicate payout bug in the escrow contract. Add regression tests, preserve the existing API, and document the failure mode.</textarea>
+              <div class="field-meta"><span>Brief fingerprint</span><code>0x9bd1…a72f</code></div>
+            </div>
+
+            <div class="criteria-header">
+              <div><span class="section-index">01</span><h2>Acceptance criteria</h2></div>
+              <span>4 checks</span>
+            </div>
+            <div class="criteria-list" id="criteriaList">
+              <article class="criterion" data-status="pending">
+                <span class="criterion-number">C1</span>
+                <div><strong>Duplicate payout is prevented</strong><p>No execution path can release escrow more than once.</p></div>
+                <span class="criterion-state">Pending</span>
+              </article>
+              <article class="criterion" data-status="pending">
+                <span class="criterion-number">C2</span>
+                <div><strong>Regression coverage is included</strong><p>Tests reproduce the original exploit and prove the fix.</p></div>
+                <span class="criterion-state">Pending</span>
+              </article>
+              <article class="criterion" data-status="pending">
+                <span class="criterion-number">C3</span>
+                <div><strong>Public interface is preserved</strong><p>Existing contract methods remain backward compatible.</p></div>
+                <span class="criterion-state">Pending</span>
+              </article>
+              <article class="criterion" data-status="pending">
+                <span class="criterion-number">C4</span>
+                <div><strong>Failure mode is documented</strong><p>README explains the root cause and protection.</p></div>
+                <span class="criterion-state">Pending</span>
+              </article>
+            </div>
+
+            <div class="submission-card">
+              <div class="submission-icon" aria-hidden="true">⌘</div>
+              <div><span>SUBMITTED EVIDENCE</span><strong>github.com/agent-labs/escrow/pull/184</strong><small>Commit 8f1a30c · 14 files changed · CI passed</small></div>
+              <button type="button" id="inspectButton">Inspect</button>
+            </div>
+
+            <button class="evaluate-button" type="button" id="evaluateButton">
+              <span>Run GenLayer adjudication</span><i aria-hidden="true">→</i>
+            </button>
+          </div>
+
+          <div class="tab-panel" id="evidencePanel" role="tabpanel" hidden>
+            <div class="evidence-summary">
+              <span class="section-index">02</span>
+              <div><h2>Frozen evidence bundle</h2><p>Every source is pinned before evaluation so the verdict can be reproduced.</p></div>
+            </div>
+            <div class="evidence-grid">
+              <article><span>01 · SOURCE</span><strong>Pull request #184</strong><p>14 changed files, +287 / −43 lines</p><code>sha256:3bc5…0e19</code></article>
+              <article><span>02 · TESTS</span><strong>CI workflow</strong><p>38 passed, including 3 new regressions</p><code>run:11840392</code></article>
+              <article><span>03 · DOCS</span><strong>README diff</strong><p>Root cause and settlement guard documented</p><code>sha256:8a77…bc04</code></article>
+            </div>
+            <div class="trust-note"><strong>Untrusted input policy</strong><p>Repository text is treated as evidence, never as an instruction to the validator. Embedded prompts are ignored.</p></div>
+          </div>
+
+          <div class="tab-panel" id="verdictPanel" role="tabpanel" hidden>
+            <div class="verdict-empty" id="verdictEmpty">
+              <span class="verdict-seal">?</span>
+              <h2>No verdict yet</h2>
+              <p>Run the adjudication from the Brief tab to compare the locked requirements with the frozen evidence.</p>
+            </div>
+            <div class="verdict-result" id="verdictResult" hidden>
+              <div class="verdict-hero">
+                <span class="verdict-seal passed">✓</span>
+                <div><span>CONSENSUS VERDICT</span><h2>Work accepted</h2><p>4 of 4 acceptance criteria passed with strong evidence.</p></div>
+                <div class="confidence"><strong>92%</strong><span>confidence</span></div>
+              </div>
+              <div class="validator-row">
+                <span>VALIDATORS</span>
+                <div class="validator-stack" aria-label="5 validators agreed"><i>G</i><i>C</i><i>L</i><i>M</i><i>D</i></div>
+                <strong>5 / 5 agree</strong>
+              </div>
+              <div class="reasoning-box"><span>DECISION RATIONALE</span><p>The settlement guard changes state before value transfer, blocking re-entry and repeated release paths. New tests reproduce the reported exploit and verify a second payout reverts. No public method signatures changed, and the README documents the original ordering flaw.</p></div>
+              <div class="settlement-row"><div><span>SETTLEMENT</span><strong>1,250 GEN → Builder</strong></div><button type="button" id="settleButton">Finalize payout</button></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="protocol-strip" aria-label="Protocol properties">
+        <div><span>01</span><strong>Plain-language criteria</strong><p>Humans define success without encoding every edge case.</p></div>
+        <div><span>02</span><strong>Frozen evidence</strong><p>Inputs are hashed before validators inspect the delivery.</p></div>
+        <div><span>03</span><strong>AI consensus</strong><p>Independent models agree under GenLayer’s Equivalence Principle.</p></div>
+        <div><span>04</span><strong>Automatic settlement</strong><p>The final verdict releases or refunds escrow on-chain.</p></div>
+      </section>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="./app.js"></script>
+  </body>
+</html>
