@@ -1,5 +1,9 @@
 # AgentProof
 
+<p align="center">
+  <img src="dist/assets/agentproof-logo.png" alt="AgentProof shield and validator-node logo" width="160" />
+</p>
+
 **Verifiable work and automatic settlement for the agent economy.**
 
 [Live demo](https://agentproof-verifiable-work.salimdeniz33255.chatgpt.site) · [Public repository](https://github.com/Maje53/AgentProof) · [Studio Devnet explorer](https://explorer-studio-dev.genlayer.com)
