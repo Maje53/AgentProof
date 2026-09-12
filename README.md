@@ -18,16 +18,34 @@ AgentProof turns that subjective boundary into a reproducible protocol decision:
 
 ## Current MVP
 
-- Interactive hackathon demo in `dist/`
-- Python Intelligent Contract in `contracts/agent_proof.py`
+- Live, finalized Intelligent Contract on GenLayer Studio Devnet
+- Interactive hackathon interface in `dist/` with real wallet/network connection
+- Python Intelligent Contract in `contracts/agent_proof.py`, pinned to the v0.6 runner
 - Explicit OPEN → SUBMITTED → DECIDED → SETTLED state machine
-- Leader/validator non-deterministic adjudication flow
+- Non-comparative Equivalence Principle adjudication across independent validators
 - Prompt-injection boundary for untrusted repository evidence
-- Double-settlement protection and documented model tests
+- Double-settlement protection plus model and real GenVM direct-mode tests
+
+## Live deployment
+
+| Field | Value |
+|---|---|
+| Network | GenLayer Studio Devnet |
+| Chain ID | `61997` |
+| Contract | `0xD6f7eE8da1fc3510B8513b2724af86aC8B3f0f92` |
+| Deploy transaction | `0x75a52388ca6d51f8363b5b8789571d6a0e9a630854d2614928b28da3da4cd4b7` |
+| Explorer | [explorer-studio-dev.genlayer.com](https://explorer-studio-dev.genlayer.com) |
+
+The address has been verified through `gen_getContractSchema`; the live network reports all five AgentProof methods and their expected argument/return types. Machine-readable metadata lives in `deployments/studio-devnet.json`.
 
 ## Try the interface locally
 
-Serve the `dist` directory with any static web server and open `index.html`. The demo includes a realistic GitHub delivery. Choose **Run GenLayer adjudication** to watch each criterion resolve, then finalize the payout.
+Serve the `dist` directory with any static web server and open `index.html`. The interface exposes the finalized contract address, connects a browser wallet to Studio Devnet, and includes a guided adjudication replay for the seeded showcase case. Choose **Run GenLayer adjudication** to watch each criterion resolve, then finalize the payout.
+
+```bash
+npm install
+npm run serve
+```
 
 ## Contract flow
 
@@ -50,13 +68,39 @@ settle(case_id) → builder payment or client refund
 - State changes to SETTLED before the value-transfer message is emitted.
 - Every evidence bundle carries a content hash for reproducibility.
 
-## Next build steps
+## Validate locally
 
-- Deploy to GenLayer Studio Dev and add the live contract address.
-- Replace the demo evidence bundle with a GitHub evidence snapshot service.
-- Add direct-mode GenLayer tests with mocked web and LLM responses.
-- Add milestone payments and appeal rounds.
-- Connect the frontend with `genlayer-js` and wallet signing.
+AgentProof uses the exact RC toolchain published for the Agent Tank environment:
+
+- `genlayer-py==0.19.0rc2`
+- `genlayer-test==0.30.0rc2`
+- `genvm-linter==0.11.1rc2`
+- `genlayer@0.40.0-rc2`
+- `genlayer-js@1.2.0`
+
+```bash
+python -m venv .venv
+# Activate the virtual environment, then:
+pip install -r requirements.txt
+genvm-lint check contracts/agent_proof.py
+pytest -q -p no:cacheprovider
+```
+
+The suite currently contains eight passing tests, including five that execute the actual contract through GenVM direct mode. `tests/conftest.py` contains a narrow compatibility shim for an upstream Windows temporary-file behavior in `genlayer-test 0.30.0rc2`.
+
+To create another Studio Devnet deployment:
+
+```bash
+python scripts/deploy_studio.py
+```
+
+The script creates an ephemeral, non-privileged deployer, funds it with Studio test tokens, obtains the mandatory v0.6 fee estimate, waits for finalization, and never persists or prints a private key.
+
+## Roadmap
+
+- Replace the seeded evidence replay with a GitHub evidence snapshot service.
+- Add milestone payments, appeal rounds, and portable builder reputation.
+- Submit the full create → evidence → adjudicate → settle flow from the browser.
 
 ## Hackathon track
 

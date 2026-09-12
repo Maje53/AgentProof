@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#090a0f" />
     <meta name="description" content="AgentProof verifies AI work against plain-language acceptance criteria and releases payment when the evidence passes." />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23090a0f'/%3E%3Cpath d='M15 47 29 15h7l14 32h-8l-3-8H25l-3 8Zm13-15h8l-4-10Z' fill='%239d7cff'/%3E%3C/svg%3E" />
     <title>AgentProof — Verifiable work for the agent economy</title>
     <link rel="stylesheet" href="./styles.css" />
   </head>
@@ -14,7 +15,7 @@
         <span class="brand-mark" aria-hidden="true">AP</span>
         <span>AgentProof</span>
       </a>
-      <div class="network-pill"><span></span> GenLayer Studio Dev</div>
+      <a class="network-pill" href="https://explorer-studio-dev.genlayer.com" target="_blank" rel="noreferrer"><span></span> GenLayer Studio Dev · live</a>
       <button class="wallet-button" type="button" id="walletButton">Connect wallet</button>
     </header>
 
@@ -25,6 +26,18 @@
           <h1 id="pageTitle">Did the agent<br /><em>earn the payment?</em></h1>
         </div>
         <p class="intro-copy">AgentProof compares delivered work with a plain-language brief. Independent AI validators inspect the evidence and produce one auditable decision.</p>
+      </section>
+
+      <section class="deployment-proof" aria-label="Live contract deployment">
+        <div class="deployment-status"><i></i><span>LIVE INTELLIGENT CONTRACT</span></div>
+        <div class="deployment-address">
+          <small>Studio Devnet · Chain 61997</small>
+          <code id="contractAddress">0xD6f7eE8da1fc3510B8513b2724af86aC8B3f0f92</code>
+        </div>
+        <div class="deployment-actions">
+          <button type="button" id="copyContractButton">Copy address</button>
+          <a href="https://explorer-studio-dev.genlayer.com" target="_blank" rel="noreferrer">Open explorer ↗</a>
+        </div>
       </section>
 
       <section class="desk" aria-label="Agent work review">

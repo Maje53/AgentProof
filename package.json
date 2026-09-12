@@ -1,0 +1,17 @@
+{
+  "name": "agentproof",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "node --check dist/app.js",
+    "serve": "node serve.mjs",
+    "test": "pytest -q -p no:cacheprovider",
+    "lint:contract": "genvm-lint check contracts/agent_proof.py",
+    "deploy:studio": "python scripts/deploy_studio.py"
+  },
+  "devDependencies": {
+    "genlayer": "0.40.0-rc2",
+    "genlayer-js": "1.2.0"
+  }
+}

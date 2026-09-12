@@ -5,6 +5,14 @@ const panels = {
   verdict: document.getElementById('verdictPanel'),
 };
 const toast = document.getElementById('toast');
+const walletButton = document.getElementById('walletButton');
+const STUDIO_DEV_CHAIN = {
+  chainId: '0xF22D',
+  chainName: 'GenLayer Studio Devnet',
+  nativeCurrency: { name: 'GEN Token', symbol: 'GEN', decimals: 18 },
+  rpcUrls: ['https://studio-dev.genlayer.com/api'],
+  blockExplorerUrls: ['https://explorer-studio-dev.genlayer.com'],
+};
 let toastTimer;
 
 function showToast(message) {
@@ -28,11 +36,45 @@ function openTab(name) {
 
 tabs.forEach((tab) => tab.addEventListener('click', () => openTab(tab.dataset.tab)));
 
-document.getElementById('walletButton').addEventListener('click', (event) => {
-  const connected = event.currentTarget.dataset.connected === 'true';
-  event.currentTarget.dataset.connected = String(!connected);
-  event.currentTarget.textContent = connected ? 'Connect wallet' : '0x71F4…9A20';
-  showToast(connected ? 'Wallet disconnected' : 'Demo wallet connected');
+function shortAddress(address) {
+  return `${address.slice(0, 6)}…${address.slice(-4)}`;
+}
+
+async function connectWallet() {
+  if (!window.ethereum?.request) throw new Error('Install a browser wallet such as MetaMask to connect');
+  const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+  if (!accounts?.[0]) throw new Error('No wallet account was selected');
+
+  try {
+    await window.ethereum.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: STUDIO_DEV_CHAIN.chainId }] });
+  } catch (error) {
+    if (error?.code !== 4902) throw error;
+    await window.ethereum.request({ method: 'wallet_addEthereumChain', params: [STUDIO_DEV_CHAIN] });
+  }
+
+  walletButton.dataset.connected = 'true';
+  walletButton.textContent = shortAddress(accounts[0]);
+  showToast('Wallet connected to GenLayer Studio Devnet');
+  return { address: accounts[0], chainId: 61997 };
+}
+
+walletButton.addEventListener('click', () => {
+  connectWallet().catch((error) => showToast(error?.message || 'Wallet connection was cancelled'));
+});
+
+window.ethereum?.on?.('accountsChanged', (accounts) => {
+  walletButton.dataset.connected = String(Boolean(accounts?.[0]));
+  walletButton.textContent = accounts?.[0] ? shortAddress(accounts[0]) : 'Connect wallet';
+});
+
+document.getElementById('copyContractButton').addEventListener('click', async () => {
+  const address = document.getElementById('contractAddress').textContent.trim();
+  try {
+    await navigator.clipboard.writeText(address);
+    showToast('Live contract address copied');
+  } catch {
+    showToast(address);
+  }
 });
 
 document.getElementById('inspectButton').addEventListener('click', () => {
