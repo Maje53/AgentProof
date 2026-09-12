@@ -132,7 +132,7 @@ def gradient_background() -> Image.Image:
     base += glow1 * np.array([22, 5, 4]) + glow2 * np.array([4, 10, 22])
     rng = np.random.default_rng(53)
     base += rng.normal(0, 1.1, base.shape)
-    return Image.fromarray(np.clip(base, 0, 255).astype(np.uint8), "RGB")
+    return Image.fromarray(np.clip(base, 0, 255).astype(np.uint8))
 
 
 def rounded_paste(canvas: Image.Image, source: Image.Image, box: tuple[int, int, int, int], radius: int = 28) -> None:
@@ -315,7 +315,7 @@ async def create_voice_segments() -> list[Path]:
         communicator = edge_tts.Communicate(
             scene["narration"],
             voice="en-US-AvaMultilingualNeural",
-            rate="-2%",
+            rate="+24%",
             volume="+0%",
             pitch="-2Hz",
         )
@@ -410,7 +410,7 @@ def encode_video(scene_paths: list[Path], voice_paths: list[Path], durations: li
         "-f", "concat", "-safe", "0", "-i", str(visuals),
         "-f", "concat", "-safe", "0", "-i", str(voices),
         "-i", str(music),
-        "-filter_complex", "[1:a]volume=1.15[voice];[2:a]volume=0.16[music];[voice][music]amix=inputs=2:duration=first:dropout_transition=2[a]",
+        "-filter_complex", "[1:a]volume=1.15[voice];[2:a]volume=0.16[music];[voice][music]amix=inputs=2:duration=first:dropout_transition=2[mix];[mix]loudnorm=I=-16:TP=-1.5:LRA=7[a]",
         "-map", "0:v:0", "-map", "[a]",
         "-vf", "fps=30,format=yuv420p",
         "-c:v", "libx264", "-preset", "medium", "-crf", "18",

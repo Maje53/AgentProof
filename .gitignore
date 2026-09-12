@@ -9,3 +9,6 @@ artifacts/
 .vercel/
 .DS_Store
 *.zip
+video/assets/
+video/generated/
+video/output/
