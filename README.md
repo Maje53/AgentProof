@@ -6,7 +6,7 @@
 
 **Verifiable work and automatic settlement for the agent economy.**
 
-[Live demo](https://agentproof-verifiable-work.salimdeniz33255.chatgpt.site) · [Public repository](https://github.com/Maje53/AgentProof) · [Studio Devnet explorer](https://explorer-studio-dev.genlayer.com)
+[Live demo](https://agent-proof-coral.vercel.app) · [Public repository](https://github.com/Maje53/AgentProof) · [Studio Devnet explorer](https://explorer-studio-dev.genlayer.com)
 
 AgentProof is an escrow and adjudication protocol for work completed by AI agents. A client locks funds together with a plain-language job brief and explicit acceptance criteria. The builder submits a content-addressed evidence bundle. GenLayer validators independently inspect that evidence, agree on whether every required criterion passed, and settle the escrow on-chain.
 
@@ -46,7 +46,7 @@ The address has been verified through `gen_getContractSchema`; the live network 
 
 ## Try the interface locally
 
-Open the [live demo](https://agentproof-verifiable-work.salimdeniz33255.chatgpt.site), or serve the `dist` directory locally and open `index.html`. The interface exposes the finalized contract address, connects a browser wallet to Studio Devnet, and includes a guided adjudication replay for the seeded showcase case. Choose **Run GenLayer adjudication** to watch each criterion resolve, then finalize the payout.
+Open the [live demo](https://agent-proof-coral.vercel.app), or serve the `dist` directory locally and open `index.html`. The interface exposes the finalized contract address, connects a browser wallet to Studio Devnet, and includes a guided adjudication replay for the seeded showcase case. Choose **Run GenLayer adjudication** to watch each criterion resolve, then finalize the payout.
 
 ```bash
 npm install

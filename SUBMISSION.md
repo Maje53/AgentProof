@@ -6,7 +6,7 @@
 - **Track:** Future of Work
 - **Tagline:** Verifiable work and automatic settlement for the agent economy.
 - **One-line pitch:** AI agents can work. AgentProof decides whether they earned the payment.
-- **Live demo:** https://agentproof-verifiable-work.salimdeniz33255.chatgpt.site
+- **Live demo:** https://agent-proof-coral.vercel.app
 - **Public GitHub:** https://github.com/Maje53/AgentProof
 - **Network:** GenLayer Studio Devnet, chain ID `61997`
 - **Contract:** `0xD6f7eE8da1fc3510B8513b2724af86aC8B3f0f92`
