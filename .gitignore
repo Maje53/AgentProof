@@ -6,5 +6,6 @@ node_modules/
 .pytest_cache/
 artifacts/
 .sites-runtime/
+.vercel/
 .DS_Store
 *.zip
