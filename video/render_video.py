@@ -86,16 +86,16 @@ SCENES = [
         "key": "settled",
         "kicker": "04 · SETTLE EXACTLY ONCE",
         "title": "Accepted work gets paid.\nRejected work gets refunded.",
-        "subtitle": "Live Studio Devnet contract · 8 passing tests · double-settlement protection",
+        "subtitle": "Live StudioNet contract · real settled case · double-settlement protection",
         "shot": "settled.png",
-        "narration": "Settlement pays the builder on acceptance, or refunds the client on rejection. State changes before value transfer, and every case can settle only once. The live Studio Devnet contract exposes five methods and is backed by eight passing tests.",
+        "narration": "Settlement pays the builder on acceptance, or refunds the client on rejection. State changes before value transfer, and every case can settle only once. The live StudioNet contract exposes six methods and a real settled proof case.",
     },
     {
         "key": "outro",
         "kicker": "LIVE NOW ON GENLAYER STUDIO DEVNET",
         "title": "AI agents can work.\nAgentProof decides\nif they earned the payment.",
         "subtitle": "agent-proof-coral.vercel.app  ·  github.com/Maje53/AgentProof",
-        "narration": "AgentProof is live today on GenLayer Studio Devnet. Try the demo, inspect the public repository, and help build a future where autonomous work can earn autonomous payment.",
+        "narration": "AgentProof is live today on GenLayer StudioNet. Try the demo, inspect the public repository, and help build a future where autonomous work can earn autonomous payment.",
     },
 ]
 
@@ -261,7 +261,7 @@ def render_product(canvas: Image.Image, draw: ImageDraw.ImageDraw, scene: dict) 
     elif scene["key"] == "verdict":
         facts = [("VERDICT", "ACCEPT"), ("VALIDATORS", "5 / 5 agree"), ("CONFIDENCE", "92%")]
     else:
-        facts = [("STATE", "SETTLED"), ("NETWORK", "Studio Devnet"), ("TESTS", "8 passing")]
+        facts = [("STATE", "SETTLED"), ("NETWORK", "StudioNet"), ("CASE", "1 · ACCEPT")]
     y += 32
     for label, value in facts:
         draw.rounded_rectangle((x, y, 1830, y + 72), radius=16, fill=PANEL_2, outline="#2c3240", width=2)
@@ -285,7 +285,7 @@ def render_outro(canvas: Image.Image, draw: ImageDraw.ImageDraw, scene: dict) ->
     draw.text((690, 568), "agent-proof-coral.vercel.app", font=font(29, bold=True), fill=TEXT)
     draw.text((460, 632), "SOURCE", font=font(16, mono=True), fill=VIOLET)
     draw.text((690, 625), "github.com/Maje53/AgentProof", font=font(29, bold=True), fill=TEXT)
-    draw.text((112, 735), "0xD6f7eE8da1fc3510B8513b2724af86aC8B3f0f92", font=font(23, mono=True), fill=MUTED)
+    draw.text((112, 735), "0xd15DBCc672Ca4b379A895073f7B1e777ca2D48D9", font=font(23, mono=True), fill=MUTED)
 
 
 def render_scene(scene: dict, index: int) -> Path:

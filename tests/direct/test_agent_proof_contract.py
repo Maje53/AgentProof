@@ -38,6 +38,7 @@ def test_create_case_locks_terms_and_escrow(
     assert int(case.amount) == 1_000_000
     assert case.status == "OPEN"
     assert case.verdict == "PENDING"
+    assert int(contract.get_next_case_id()) == 2
 
 
 def test_create_case_rejects_zero_escrow(

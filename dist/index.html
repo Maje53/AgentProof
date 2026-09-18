@@ -15,7 +15,7 @@
         <img class="brand-logo" src="./assets/agentproof-logo.png" alt="" aria-hidden="true" />
         <span>AgentProof</span>
       </a>
-      <a class="network-pill" href="https://explorer-studio-dev.genlayer.com" target="_blank" rel="noreferrer"><span></span> GenLayer Studio Dev · live</a>
+      <a class="network-pill" href="https://explorer-studio.genlayer.com" target="_blank" rel="noreferrer"><span></span> GenLayer StudioNet · live</a>
       <button class="wallet-button" type="button" id="walletButton">Connect wallet</button>
     </header>
 
@@ -31,16 +31,108 @@
       <section class="deployment-proof" aria-label="Live contract deployment">
         <div class="deployment-status"><i></i><span>LIVE INTELLIGENT CONTRACT</span></div>
         <div class="deployment-address">
-          <small>Studio Devnet · Chain 61997</small>
-          <code id="contractAddress">0xD6f7eE8da1fc3510B8513b2724af86aC8B3f0f92</code>
+          <small>StudioNet · Chain 61999</small>
+          <code id="contractAddress">0xd15DBCc672Ca4b379A895073f7B1e777ca2D48D9</code>
         </div>
         <div class="deployment-actions">
           <button type="button" id="copyContractButton">Copy address</button>
-          <a href="https://explorer-studio-dev.genlayer.com" target="_blank" rel="noreferrer">Open explorer ↗</a>
+          <a href="https://explorer-studio.genlayer.com/address/0xd15DBCc672Ca4b379A895073f7B1e777ca2D48D9" target="_blank" rel="noreferrer">Open contract ↗</a>
         </div>
       </section>
 
-      <section class="desk" aria-label="Agent work review">
+      <nav class="mode-switch" aria-label="Demo mode">
+        <button class="mode-button active" type="button" data-mode="live">Live Contract</button>
+        <button class="mode-button" type="button" data-mode="replay">Guided Replay</button>
+        <p id="modeDescription">Reads real contract state and sends wallet-signed StudioNet transactions.</p>
+      </nav>
+
+      <section class="live-workspace" id="liveWorkspace" aria-label="Live AgentProof contract">
+        <div class="live-heading">
+          <div>
+            <span class="live-kicker"><i></i> ONCHAIN MODE</span>
+            <h2>Use the deployed contract</h2>
+            <p>Create a case or inspect an existing one. Every action below reads from or writes to GenLayer StudioNet.</p>
+          </div>
+          <div class="rpc-proof">
+            <span>RPC</span>
+            <code>studio.genlayer.com/api</code>
+            <strong id="rpcStatus">Checking contract…</strong>
+          </div>
+        </div>
+
+        <div class="live-grid">
+          <aside class="live-controls">
+            <div class="control-section">
+              <span class="control-index">01 · READ STATE</span>
+              <label for="liveCaseId">Case ID</label>
+              <div class="inline-control">
+                <input id="liveCaseId" inputmode="numeric" min="1" type="number" value="1" />
+                <button type="button" id="loadCaseButton">Load onchain state</button>
+              </div>
+            </div>
+
+            <form class="control-section" id="createCaseForm">
+              <span class="control-index">02 · CREATE CASE</span>
+              <label for="liveBrief">Job brief</label>
+              <textarea id="liveBrief" rows="3">Review the AgentProof repository and verify that the live demo exposes real GenLayer contract state and transaction receipts.</textarea>
+              <label for="liveCriteria">Acceptance criteria</label>
+              <textarea id="liveCriteria" rows="4">The public demo reads a real case from StudioNet; wallet actions return transaction hashes; contract state updates after finalized transactions.</textarea>
+              <label for="liveEscrow">Escrow (GEN)</label>
+              <input id="liveEscrow" type="number" min="0.000001" step="0.001" value="0.01" />
+              <button class="live-action primary" type="submit" id="createCaseButton">Connect wallet & create case</button>
+              <small>The connected wallet is assigned as both client and builder for a complete self-service test flow.</small>
+            </form>
+
+            <form class="control-section" id="evidenceForm">
+              <span class="control-index">03 · SUBMIT EVIDENCE</span>
+              <label for="liveEvidenceUri">Public evidence URL</label>
+              <input id="liveEvidenceUri" type="url" value="https://github.com/Maje53/AgentProof" />
+              <label for="liveEvidenceHash">Immutable content hash</label>
+              <input id="liveEvidenceHash" value="sha256:b70ddbd2a63126909742cd27ede34a6e4c1bb2d425ffeee" />
+              <button class="live-action" type="submit" id="submitEvidenceButton">Submit evidence onchain</button>
+            </form>
+
+            <div class="live-write-row">
+              <button class="live-action" type="button" id="liveAdjudicateButton">Run real adjudication</button>
+              <button class="live-action settle" type="button" id="liveSettleButton">Settle real escrow</button>
+            </div>
+          </aside>
+
+          <div class="live-output">
+            <div class="state-toolbar">
+              <div><span>CONTRACT STATE</span><strong id="liveStateStatus">No case loaded</strong></div>
+              <button type="button" id="refreshCaseButton">Refresh</button>
+            </div>
+            <div class="state-grid" id="liveStateGrid">
+              <article><span>CASE</span><strong id="stateCaseId">—</strong></article>
+              <article><span>STATUS</span><strong id="stateStatus">—</strong></article>
+              <article><span>VERDICT</span><strong id="stateVerdict">—</strong></article>
+              <article><span>ESCROW</span><strong id="stateAmount">—</strong></article>
+            </div>
+            <dl class="case-details">
+              <div><dt>Client</dt><dd id="stateClient">—</dd></div>
+              <div><dt>Builder</dt><dd id="stateBuilder">—</dd></div>
+              <div><dt>Brief</dt><dd id="stateBrief">—</dd></div>
+              <div><dt>Criteria</dt><dd id="stateCriteria">—</dd></div>
+              <div><dt>Evidence</dt><dd id="stateEvidence">—</dd></div>
+              <div><dt>Reasoning</dt><dd id="stateReasoning">—</dd></div>
+            </dl>
+            <div class="transaction-proof" id="transactionProof">
+              <div class="transaction-empty">
+                <span>TRANSACTION RESULT</span>
+                <p>Wallet-signed transaction hashes, consensus status, and explorer evidence will appear here.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="guided-replay" id="guidedReplay" hidden aria-label="Guided browser replay">
+        <div class="replay-notice">
+          <strong>GUIDED REPLAY · SIMULATED</strong>
+          <p>This optional walkthrough uses browser-only sample state. It does not call the contract. Switch to Live Contract for verifiable reads and transactions.</p>
+        </div>
+      <section class="desk" aria-label="Agent work review guided replay">
         <aside class="case-rail">
           <div class="rail-heading">
             <span>CASE</span>
@@ -108,7 +200,7 @@
             </div>
 
             <button class="evaluate-button" type="button" id="evaluateButton">
-              <span>Run GenLayer adjudication</span><i aria-hidden="true">→</i>
+              <span>Replay GenLayer adjudication</span><i aria-hidden="true">→</i>
             </button>
           </div>
 
@@ -143,10 +235,11 @@
                 <strong>5 / 5 agree</strong>
               </div>
               <div class="reasoning-box"><span>DECISION RATIONALE</span><p>The settlement guard changes state before value transfer, blocking re-entry and repeated release paths. New tests reproduce the reported exploit and verify a second payout reverts. No public method signatures changed, and the README documents the original ordering flaw.</p></div>
-              <div class="settlement-row"><div><span>SETTLEMENT</span><strong>1,250 GEN → Builder</strong></div><button type="button" id="settleButton">Finalize payout</button></div>
+              <div class="settlement-row"><div><span>SIMULATED SETTLEMENT</span><strong>1,250 GEN → Builder</strong></div><button type="button" id="settleButton">Replay payout</button></div>
             </div>
           </div>
         </div>
+      </section>
       </section>
 
       <section class="protocol-strip" aria-label="Protocol properties">
@@ -158,6 +251,6 @@
     </main>
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
-    <script src="./app.js"></script>
+    <script type="module" src="./app.js"></script>
   </body>
 </html>

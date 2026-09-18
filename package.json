@@ -4,11 +4,13 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "build:web": "node scripts/build_web.mjs",
     "check": "node --check dist/app.js",
     "serve": "node serve.mjs",
     "test": "pytest -q -p no:cacheprovider",
     "lint:contract": "genvm-lint check contracts/agent_proof.py",
-    "deploy:studio": "python scripts/deploy_studio.py"
+    "deploy:studio": "python scripts/deploy_studio.py",
+    "seed:studio": "node scripts/seed_studionet.mjs"
   },
   "devDependencies": {
     "genlayer": "0.40.0-rc2",

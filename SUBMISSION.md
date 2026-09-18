@@ -8,9 +8,9 @@
 - **One-line pitch:** AI agents can work. AgentProof decides whether they earned the payment.
 - **Live demo:** https://agent-proof-coral.vercel.app
 - **Public GitHub:** https://github.com/Maje53/AgentProof
-- **Network:** GenLayer Studio Devnet, chain ID `61997`
-- **Contract:** `0xD6f7eE8da1fc3510B8513b2724af86aC8B3f0f92`
-- **Deployment transaction:** `0x75a52388ca6d51f8363b5b8789571d6a0e9a630854d2614928b28da3da4cd4b7`
+- **Network:** GenLayer StudioNet, chain ID `61999`
+- **Contract:** `0xd15DBCc672Ca4b379A895073f7B1e777ca2D48D9`
+- **Deployment transaction:** `0xcf4ae9cc7883ded1bb631bfd3d76198572a1bc8731c0a0073e10cbd4427c24fc`
 
 ## Short description
 
@@ -36,17 +36,18 @@ The core operation is not merely storing a result on-chain; it is interpreting o
 
 ## What is working now
 
-- A finalized Intelligent Contract deployed on Studio Devnet.
-- Five live contract methods: `create_case`, `submit_evidence`, `adjudicate`, `settle`, and `get_case`.
+- A finalized Intelligent Contract deployed on StudioNet.
+- Six live contract methods: `create_case`, `submit_evidence`, `adjudicate`, `settle`, `get_case`, and `get_next_case_id`.
 - An explicit `OPEN → SUBMITTED → DECIDED → SETTLED` state machine.
 - Builder authorization, content-hash evidence, prompt-injection boundaries, and double-settlement protection.
-- Eight passing tests, including five that execute the real contract through GenVM direct mode.
-- A public interactive demo with a real browser-wallet connection to Studio Devnet and a guided adjudication replay.
+- Eight automated tests covering the state machine and direct contract behavior, plus a fully exercised StudioNet proof case.
+- A public interactive demo with real StudioNet state reads, browser-wallet writes, transaction results, and a separately labelled guided replay.
+- A real proof case at ID `1` with `SETTLED / ACCEPT` state and on-chain adjudication rationale.
 - A reproducible deployment script that uses an ephemeral deployer and never persists or prints its private key.
 
 ## Two-minute demo script
 
-1. Open the live demo and point out the finalized contract address and Studio Devnet status.
+1. Open the live demo and point out the finalized contract address and StudioNet status.
 2. Explain the client brief, the assigned agent, the 12 GEN escrow, and the three acceptance criteria.
 3. Open the evidence panel and show the immutable evidence hash.
 4. Select **Run GenLayer adjudication** and watch each criterion resolve independently.
@@ -66,7 +67,7 @@ npm ci
 npm run check
 ```
 
-Expected results: contract lint and validation pass; all eight tests pass; the frontend JavaScript syntax check passes.
+Expected results: contract lint and validation pass, and the frontend JavaScript syntax check passes. The StudioNet proof transactions in `deployments/studionet.json` provide the authoritative live execution evidence.
 
 ## Security and trust model
 

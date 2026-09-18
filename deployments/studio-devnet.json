@@ -1,9 +1,0 @@
-{
-  "network": "GenLayer Studio Devnet",
-  "chainId": 61997,
-  "rpcUrl": "https://studio-dev.genlayer.com/api",
-  "explorerUrl": "https://explorer-studio-dev.genlayer.com",
-  "contractAddress": "0xD6f7eE8da1fc3510B8513b2724af86aC8B3f0f92",
-  "transactionHash": "0x75a52388ca6d51f8363b5b8789571d6a0e9a630854d2614928b28da3da4cd4b7",
-  "status": "finalized"
-}

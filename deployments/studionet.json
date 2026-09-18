@@ -1,0 +1,15 @@
+{
+  "network": "GenLayer StudioNet",
+  "chainId": 61999,
+  "rpcUrl": "https://studio.genlayer.com/api",
+  "explorerUrl": "https://explorer-studio.genlayer.com",
+  "contractAddress": "0xd15DBCc672Ca4b379A895073f7B1e777ca2D48D9",
+  "deploymentTransaction": "0xcf4ae9cc7883ded1bb631bfd3d76198572a1bc8731c0a0073e10cbd4427c24fc",
+  "showcaseCase": 1,
+  "showcaseStatus": "SETTLED",
+  "showcaseVerdict": "ACCEPT",
+  "adjudicationTransaction": "0x3a8b1cad81fa4bed10a9becec6a4bb3d4a1c71d13d808da1fbc4be6e3e62af94",
+  "settlementTransaction": "0xb768ab75694537fd91cfc4c39c8bc99c2e2c6c79ebd2c27b90b7197a9c9d96bc",
+  "readyCase": 2,
+  "readyCaseStatus": "SUBMITTED"
+}

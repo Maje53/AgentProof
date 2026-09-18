@@ -6,7 +6,7 @@
 
 **Verifiable work and automatic settlement for the agent economy.**
 
-[Live demo](https://agent-proof-coral.vercel.app) · [Public repository](https://github.com/Maje53/AgentProof) · [Studio Devnet explorer](https://explorer-studio-dev.genlayer.com)
+[Live demo](https://agent-proof-coral.vercel.app) · [Public repository](https://github.com/Maje53/AgentProof) · [StudioNet explorer](https://explorer-studio.genlayer.com/address/0xd15DBCc672Ca4b379A895073f7B1e777ca2D48D9)
 
 AgentProof is an escrow and adjudication protocol for work completed by AI agents. A client locks funds together with a plain-language job brief and explicit acceptance criteria. The builder submits a content-addressed evidence bundle. GenLayer validators independently inspect that evidence, agree on whether every required criterion passed, and settle the escrow on-chain.
 
@@ -24,9 +24,9 @@ AgentProof turns that subjective boundary into a reproducible protocol decision:
 
 ## Current MVP
 
-- Live, finalized Intelligent Contract on GenLayer Studio Devnet
-- Interactive hackathon interface in `dist/` with real wallet/network connection
-- Python Intelligent Contract in `contracts/agent_proof.py`, pinned to the v0.6 runner
+- Live, finalized Intelligent Contract on GenLayer StudioNet
+- Interactive hackathon interface in `dist/` with real contract reads, wallet-signed writes, and transaction results
+- Python Intelligent Contract in `contracts/agent_proof.py`, pinned to StudioNet's current GenVM SDK
 - Explicit OPEN → SUBMITTED → DECIDED → SETTLED state machine
 - Non-comparative Equivalence Principle adjudication across independent validators
 - Prompt-injection boundary for untrusted repository evidence
@@ -36,17 +36,17 @@ AgentProof turns that subjective boundary into a reproducible protocol decision:
 
 | Field | Value |
 |---|---|
-| Network | GenLayer Studio Devnet |
-| Chain ID | `61997` |
-| Contract | `0xD6f7eE8da1fc3510B8513b2724af86aC8B3f0f92` |
-| Deploy transaction | `0x75a52388ca6d51f8363b5b8789571d6a0e9a630854d2614928b28da3da4cd4b7` |
-| Explorer | [explorer-studio-dev.genlayer.com](https://explorer-studio-dev.genlayer.com) |
+| Network | GenLayer StudioNet |
+| Chain ID | `61999` |
+| Contract | `0xd15DBCc672Ca4b379A895073f7B1e777ca2D48D9` |
+| Deploy transaction | `0xcf4ae9cc7883ded1bb631bfd3d76198572a1bc8731c0a0073e10cbd4427c24fc` |
+| Explorer | [Open contract](https://explorer-studio.genlayer.com/address/0xd15DBCc672Ca4b379A895073f7B1e777ca2D48D9) |
 
-The address has been verified through `gen_getContractSchema`; the live network reports all five AgentProof methods and their expected argument/return types. Machine-readable metadata lives in `deployments/studio-devnet.json`.
+The deployment and every write path have been exercised on-chain. Case `1` reached `SETTLED / ACCEPT` after real validator adjudication; case `2` remains `SUBMITTED` as a live inspection example. Machine-readable metadata and proof transactions live in `deployments/studionet.json`.
 
 ## Try the interface locally
 
-Open the [live demo](https://agent-proof-coral.vercel.app), or serve the `dist` directory locally and open `index.html`. The interface exposes the finalized contract address, connects a browser wallet to Studio Devnet, and includes a guided adjudication replay for the seeded showcase case. Choose **Run GenLayer adjudication** to watch each criterion resolve, then finalize the payout.
+Open the [live demo](https://agent-proof-coral.vercel.app), or serve the `dist` directory locally and open `index.html`. **Live Contract** loads real case state and sends wallet-signed StudioNet transactions. The separate **Guided Replay** remains clearly labelled as a browser-only walkthrough.
 
 ```bash
 npm install
@@ -92,21 +92,22 @@ genvm-lint check contracts/agent_proof.py
 pytest -q -p no:cacheprovider
 ```
 
-The suite currently contains eight passing tests, including five that execute the actual contract through GenVM direct mode. `tests/conftest.py` contains a narrow compatibility shim for an upstream Windows temporary-file behavior in `genlayer-test 0.30.0rc2`.
+The suite contains three deterministic state-machine tests and five GenVM direct-mode contract tests. The production proof is also recorded on StudioNet: case `1` exercised every write path and finalized as `SETTLED / ACCEPT`.
 
-To create another Studio Devnet deployment:
+To create another StudioNet deployment and seed proof cases:
 
 ```bash
 python scripts/deploy_studio.py
+npm run seed:studio
 ```
 
-The script creates an ephemeral, non-privileged deployer, funds it with Studio test tokens, obtains the mandatory v0.6 fee estimate, waits for finalization, and never persists or prints a private key.
+The scripts use ephemeral, non-privileged accounts, wait for consensus finalization, validate GenVM execution results, and never persist or print a private key.
 
 ## Roadmap
 
-- Replace the seeded evidence replay with a GitHub evidence snapshot service.
+- Add a GitHub evidence snapshot service for stronger content-addressed retrieval.
 - Add milestone payments, appeal rounds, and portable builder reputation.
-- Submit the full create → evidence → adjudicate → settle flow from the browser.
+- Add richer transaction history and appeal controls to the browser.
 
 ## Hackathon track
 
