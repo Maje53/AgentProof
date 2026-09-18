@@ -14,10 +14,15 @@ def _address(raw):
     return Address(raw)
 
 
+def _address_arg(raw):
+    """Match the hexadecimal address string produced by browser calldata."""
+    return f"0x{bytes(raw).hex()}"
+
+
 def _create_case(vm, contract, client, builder, amount=1_000_000):
     vm.sender = client
     vm.value = amount
-    case_id = contract.create_case(_address(builder), BRIEF, CRITERIA)
+    case_id = contract.create_case(_address_arg(builder), BRIEF, CRITERIA)
     vm.value = 0
     return case_id
 
@@ -49,7 +54,7 @@ def test_create_case_rejects_zero_escrow(
     direct_vm.value = 0
 
     with direct_vm.expect_revert("Escrow amount must be greater than zero"):
-        contract.create_case(_address(direct_bob), BRIEF, CRITERIA)
+        contract.create_case(_address_arg(direct_bob), BRIEF, CRITERIA)
 
 
 def test_only_assigned_builder_can_submit_evidence(
