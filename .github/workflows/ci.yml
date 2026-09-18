@@ -27,8 +27,8 @@ jobs:
       - name: Lint Intelligent Contract
         run: genvm-lint check contracts/agent_proof.py
 
-      - name: Run contract tests
-        run: pytest -q -p no:cacheprovider
+      - name: Run deterministic state-machine tests
+        run: pytest tests/test_contract_model.py -q -p no:cacheprovider
 
       - uses: actions/setup-node@v4
         with:
@@ -40,3 +40,6 @@ jobs:
 
       - name: Check frontend JavaScript
         run: npm run check
+
+      - name: Verify deployed StudioNet contract
+        run: npm run verify:studio

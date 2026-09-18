@@ -6,6 +6,7 @@
   "scripts": {
     "build:web": "node scripts/build_web.mjs",
     "check": "node --check dist/app.js",
+    "verify:studio": "node scripts/verify_studionet.mjs",
     "serve": "node serve.mjs",
     "test": "pytest -q -p no:cacheprovider",
     "lint:contract": "genvm-lint check contracts/agent_proof.py",
